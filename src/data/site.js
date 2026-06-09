@@ -37,35 +37,35 @@ export const videoCategories = [
   {
     id: 'ai-basics',
     label: 'AI 기초',
-    icon: '🤖',
+    icon: 'robot',
     color: 'sky',
     description: '인공지능의 개념, 역사, 원리를 체계적으로 배웁니다.',
   },
   {
     id: 'ai-literacy',
     label: 'AI 리터러시',
-    icon: '📚',
+    icon: 'book-open',
     color: 'teal',
     description: 'AI 시대를 살아가는 데 필요한 핵심 역량을 기릅니다.',
   },
   {
     id: 'generative-ai',
     label: '생성형 AI',
-    icon: '✨',
+    icon: 'wand-sparkles',
     color: 'amber',
     description: 'ChatGPT, 미드저니 등 생성형 AI 도구를 실습합니다.',
   },
   {
     id: 'ai-tools',
     label: 'AI 도구 활용',
-    icon: '🛠️',
+    icon: 'wrench',
     color: 'navy',
     description: '실무에서 바로 쓸 수 있는 AI 도구 활용법을 배웁니다.',
   },
   {
     id: 'ai-future',
     label: 'AI와 미래',
-    icon: '🚀',
+    icon: 'rocket',
     color: 'teal',
     description: 'AI가 바꾸는 사회, 산업, 직업의 미래를 탐구합니다.',
   },
@@ -434,22 +434,22 @@ export const videos = {
 // 홈 특징 카드
 export const features = [
   {
-    icon: '🎬',
+    icon: 'film',
     title: 'AI 영상 모아보기',
     desc: '유튜브에 흩어진 AI 핵심 영상을 주제별로 정리해 한곳에서 감상하세요.',
   },
   {
-    icon: '📱',
+    icon: 'mobile',
     title: '언제 어디서나',
     desc: 'PC, 태블릿, 모바일 — 어떤 기기에서도 끊김 없이 시청할 수 있습니다.',
   },
   {
-    icon: '🔄',
+    icon: 'rotate',
     title: '최신 트렌드 업데이트',
     desc: '빠르게 변화하는 AI 트렌드를 반영한 최신 영상을 지속적으로 추가합니다.',
   },
   {
-    icon: '🌐',
+    icon: 'globe',
     title: '완전 무료',
     desc: '모든 영상은 유튜브 공개 콘텐츠로, 별도 가입 없이 누구나 무료로 시청합니다.',
   },

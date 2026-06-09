@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import Icon from '../components/Icon'
 
 export default function SimplePage({ title = '준비 중' }) {
   return (
@@ -17,14 +18,12 @@ export default function SimplePage({ title = '준비 중' }) {
       </div>
 
       <div className="container-wrap section-x py-24 text-center">
-        <div className="text-6xl mb-6">🔧</div>
+        <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-sky/15 to-teal/10 dark:from-navy-800 dark:to-navy-700 flex items-center justify-center mx-auto mb-6">
+          <Icon name="gears" size={36} className="text-sky dark:text-sky-light" />
+        </div>
         <h2 className="text-2xl font-bold text-navy-900 dark:text-white mb-3">페이지 준비 중입니다</h2>
-        <p className="text-gray-500 dark:text-gray-400 mb-8">
-          더 나은 콘텐츠로 곧 돌아오겠습니다.
-        </p>
-        <Link to="/" className="btn-primary">
-          홈으로 돌아가기
-        </Link>
+        <p className="text-gray-500 dark:text-gray-400 mb-8">더 나은 콘텐츠로 곧 돌아오겠습니다.</p>
+        <Link to="/" className="btn-primary">홈으로 돌아가기</Link>
       </div>
     </div>
   )

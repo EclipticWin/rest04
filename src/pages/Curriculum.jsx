@@ -1,8 +1,18 @@
 import { Link } from 'react-router-dom'
 import { videoCategories, videos } from '../data/site'
 import Reveal from '../components/Reveal'
+import Icon from '../components/Icon'
 
 const LEVELS = ['입문', '초급', '중급', '고급']
+const LEVEL_COLORS = ['bg-teal/10 text-teal', 'bg-sky/10 text-sky', 'bg-amber/10 text-amber-dark', 'bg-red-50 text-red-600']
+
+const CAT_STYLE = {
+  'ai-basics':     { box: 'from-sky/20 to-sky/5 dark:from-sky/25 dark:to-navy-800',     icon: 'text-sky dark:text-sky-light' },
+  'ai-literacy':   { box: 'from-teal/20 to-teal/5 dark:from-teal/25 dark:to-navy-800',  icon: 'text-teal dark:text-teal-light' },
+  'generative-ai': { box: 'from-amber/20 to-amber/5 dark:from-amber/25 dark:to-navy-800', icon: 'text-amber-dark dark:text-amber-light' },
+  'ai-tools':      { box: 'from-sky/10 to-teal/5 dark:from-navy-700/50 dark:to-navy-800', icon: 'text-navy-700 dark:text-sky-light' },
+  'ai-future':     { box: 'from-teal/15 to-sky/10 dark:from-teal/25 dark:to-sky/10',    icon: 'text-teal dark:text-teal-light' },
+}
 
 export default function Curriculum() {
   return (
@@ -28,14 +38,12 @@ export default function Curriculum() {
           <Reveal className="flex flex-wrap gap-4 justify-center">
             {LEVELS.map((level, i) => (
               <div key={level} className="flex items-center gap-2 text-sm font-semibold">
-                {i > 0 && <svg className="h-4 w-4 text-gray-300 dark:text-navy-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>}
-                <span className={`px-3 py-1.5 rounded-full ${
-                  ['bg-teal/10 text-teal', 'bg-sky/10 text-sky', 'bg-amber/10 text-amber-dark', 'bg-red-50 text-red-600'][i]
-                }`}>
-                  {level}
-                </span>
+                {i > 0 && (
+                  <svg className="h-4 w-4 text-gray-300 dark:text-navy-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                )}
+                <span className={`px-3 py-1.5 rounded-full ${LEVEL_COLORS[i]}`}>{level}</span>
               </div>
             ))}
           </Reveal>
@@ -47,12 +55,15 @@ export default function Curriculum() {
         <div className="space-y-14">
           {videoCategories.map((cat, catIdx) => {
             const catVideos = videos[cat.id] || []
+            const s = CAT_STYLE[cat.id] || CAT_STYLE['ai-basics']
             return (
               <Reveal key={cat.id} delay={catIdx * 60} direction="up">
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3">
-                      <span className="text-3xl">{cat.icon}</span>
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${s.box} flex items-center justify-center shrink-0`}>
+                        <Icon name={cat.icon} size={22} className={s.icon} />
+                      </div>
                       <div>
                         <h2 className="text-xl font-extrabold text-navy-900 dark:text-white">{cat.label}</h2>
                         <p className="text-sm text-gray-500 dark:text-gray-400">{cat.description}</p>
@@ -62,7 +73,7 @@ export default function Curriculum() {
                       to={`/videos/${cat.id}`}
                       className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-sky hover:text-navy-700 dark:hover:text-sky-light transition-colors"
                     >
-                      전체 강의
+                      전체 영상
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                       </svg>
@@ -75,18 +86,14 @@ export default function Curriculum() {
                         key={video.id}
                         className="flex items-start gap-3 p-4 rounded-xl border border-gray-100 dark:border-navy-700 bg-white dark:bg-navy-800 hover:border-navy-300 dark:hover:border-navy-600 hover:-translate-y-0.5 transition-all duration-200"
                       >
-                        <span className="text-lg font-bold text-gray-200 dark:text-navy-700 shrink-0 w-7 text-center">
+                        <span className="text-sm font-bold text-gray-200 dark:text-navy-700 shrink-0 w-7 text-center tabular-nums">
                           {String(idx + 1).padStart(2, '0')}
                         </span>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-semibold text-navy-900 dark:text-white line-clamp-2">{video.title}</p>
                           <div className="flex items-center gap-2 mt-1.5">
-                            {video.level && (
-                              <span className="text-xs text-gray-400">{video.level}</span>
-                            )}
-                            {video.duration && (
-                              <span className="text-xs text-gray-400">· {video.duration}</span>
-                            )}
+                            {video.level && <span className="text-xs text-gray-400">{video.level}</span>}
+                            {video.duration && <span className="text-xs text-gray-400">· {video.duration}</span>}
                           </div>
                         </div>
                       </div>
@@ -95,11 +102,8 @@ export default function Curriculum() {
 
                   {catVideos.length > 6 && (
                     <div className="mt-4 text-center">
-                      <Link
-                        to={`/videos/${cat.id}`}
-                        className="text-sm text-sky dark:text-sky-light font-semibold hover:underline"
-                      >
-                        {catVideos.length - 6}개 강의 더 보기 →
+                      <Link to={`/videos/${cat.id}`} className="text-sm text-sky dark:text-sky-light font-semibold hover:underline">
+                        {catVideos.length - 6}개 영상 더 보기 →
                       </Link>
                     </div>
                   )}

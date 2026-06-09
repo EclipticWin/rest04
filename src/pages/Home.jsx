@@ -4,6 +4,28 @@ import { videoCategories, videos, features, stats, siteConfig } from '../data/si
 import VideoCard from '../components/VideoCard'
 import VideoModal from '../components/VideoModal'
 import Reveal from '../components/Reveal'
+import Icon from '../components/Icon'
+
+// 카테고리별 아이콘 박스 색상 (Tailwind JIT 인식을 위해 전체 문자열로 선언)
+const CAT_STYLE = {
+  'ai-basics':     { box: 'from-sky/20 to-sky/5 dark:from-sky/30 dark:to-navy-800',     icon: 'text-sky dark:text-sky-light' },
+  'ai-literacy':   { box: 'from-teal/20 to-teal/5 dark:from-teal/30 dark:to-navy-800',  icon: 'text-teal dark:text-teal-light' },
+  'generative-ai': { box: 'from-amber/20 to-amber/5 dark:from-amber/25 dark:to-navy-800', icon: 'text-amber-dark dark:text-amber-light' },
+  'ai-tools':      { box: 'from-sky/10 to-navy-50 dark:from-navy-700/60 dark:to-navy-800', icon: 'text-navy-700 dark:text-sky-light' },
+  'ai-future':     { box: 'from-teal/15 to-sky/10 dark:from-teal/25 dark:to-sky/10',    icon: 'text-teal dark:text-teal-light' },
+}
+const FEAT_BOX = [
+  'from-sky/20 to-sky/5 dark:from-sky/25 dark:to-navy-800',
+  'from-teal/20 to-teal/5 dark:from-teal/25 dark:to-navy-800',
+  'from-amber/20 to-amber/5 dark:from-amber/25 dark:to-navy-800',
+  'from-sky/10 to-teal/5 dark:from-navy-700/50 dark:to-navy-800',
+]
+const FEAT_ICON = [
+  'text-sky dark:text-sky-light',
+  'text-teal dark:text-teal-light',
+  'text-amber-dark dark:text-amber-light',
+  'text-sky dark:text-sky-light',
+]
 
 export default function Home() {
   const [playingVideo, setPlayingVideo] = useState(null)
@@ -98,23 +120,26 @@ export default function Home() {
           </Reveal>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {videoCategories.map((cat, i) => (
-              <Reveal key={cat.id} delay={i * 80} direction="up">
-                <Link
-                  to={`/videos/${cat.id}`}
-                  className="card flex flex-col items-center text-center p-5 hover:-translate-y-2 transition-transform duration-300 group h-full"
-                >
-                  <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                    {cat.icon}
-                  </div>
-                  <h3 className="font-bold text-sm text-navy-900 dark:text-white mb-1">{cat.label}</h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">{cat.description}</p>
-                  <div className="mt-3 text-xs font-semibold text-sky dark:text-sky-light">
-                    {videos[cat.id]?.length || 0}개 강의
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+            {videoCategories.map((cat, i) => {
+              const s = CAT_STYLE[cat.id] || CAT_STYLE['ai-basics']
+              return (
+                <Reveal key={cat.id} delay={i * 80} direction="up">
+                  <Link
+                    to={`/videos/${cat.id}`}
+                    className="card flex flex-col items-center text-center p-5 hover:-translate-y-2 transition-transform duration-300 group h-full"
+                  >
+                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${s.box} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon name={cat.icon} size={22} className={s.icon} />
+                    </div>
+                    <h3 className="font-bold text-sm text-navy-900 dark:text-white mb-1">{cat.label}</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">{cat.description}</p>
+                    <div className="mt-3 text-xs font-semibold text-sky dark:text-sky-light">
+                      {videos[cat.id]?.length || 0}개 영상
+                    </div>
+                  </Link>
+                </Reveal>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -160,7 +185,9 @@ export default function Home() {
             {features.map((f, i) => (
               <Reveal key={f.title} delay={i * 100} direction="up">
                 <div className="card p-6 text-center hover:-translate-y-2 transition-transform duration-300 h-full">
-                  <div className="text-4xl mb-4">{f.icon}</div>
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${FEAT_BOX[i]} flex items-center justify-center mb-5 mx-auto`}>
+                    <Icon name={f.icon} size={26} className={FEAT_ICON[i]} />
+                  </div>
                   <h3 className="font-bold text-navy-900 dark:text-white mb-2">{f.title}</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{f.desc}</p>
                 </div>

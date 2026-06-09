@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 import { navMenu, videoCategories, siteConfig } from '../data/site'
+import Icon from './Icon'
 
 export default function Header() {
   const { isDark, toggle } = useTheme()
@@ -92,7 +93,7 @@ export default function Header() {
                                   }`
                                 }
                               >
-                                <span className="text-lg mt-0.5">{cat?.icon || '▸'}</span>
+                                <Icon name={cat?.icon} size={15} className="text-sky dark:text-sky-light shrink-0 mt-0.5" />
                                 <div>
                                   <div className="text-sm font-semibold">{child.label}</div>
                                   <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{child.desc}</div>
@@ -188,7 +189,7 @@ export default function Header() {
                             }`
                           }
                         >
-                          <span className="text-base">{cat?.icon || '▸'}</span>
+                          <Icon name={cat?.icon} size={14} className="text-sky dark:text-sky-light shrink-0" />
                           {child.label}
                         </NavLink>
                       )

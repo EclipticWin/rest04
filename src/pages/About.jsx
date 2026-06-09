@@ -1,6 +1,7 @@
 import { useParams, Navigate, Link } from 'react-router-dom'
 import { siteConfig } from '../data/site'
 import Reveal from '../components/Reveal'
+import Icon from '../components/Icon'
 
 const tabs = [
   { id: 'intro', label: '회사 소개' },
@@ -30,7 +31,6 @@ export default function About() {
           </nav>
           <h1 className="hero-anim hero-d1 text-2xl md:text-3xl font-extrabold text-white mb-8">회사소개</h1>
 
-          {/* Tabs */}
           <div className="hero-anim hero-d2 flex gap-2 overflow-x-auto pb-1">
             {tabs.map((t) => (
               <Link
@@ -78,7 +78,9 @@ function IntroTab() {
         </Reveal>
         <Reveal direction="right" delay={120}>
           <div className="card p-8 bg-gradient-to-br from-navy-700 to-navy-900 text-white">
-            <div className="text-5xl mb-4">🎓</div>
+            <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-5">
+              <Icon name="graduation" size={28} className="text-sky-light" />
+            </div>
             <h3 className="text-xl font-bold mb-3">전문 AI 교육</h3>
             <p className="text-white/70 text-sm leading-relaxed">
               현직 AI 전문가와 교육 전문가가 함께 설계한 커리큘럼으로 실질적인 AI 역량을 키웁니다.
@@ -92,9 +94,27 @@ function IntroTab() {
 
 function VisionTab() {
   const items = [
-    { icon: '🎯', title: '미션', desc: '모든 사람이 AI를 이해하고 활용할 수 있는 세상을 만들어 갑니다.' },
-    { icon: '🚀', title: '비전', desc: 'AI 리터러시 교육의 선두 주자로서 디지털 전환 시대의 교육 혁신을 이끕니다.' },
-    { icon: '💡', title: '핵심 가치', desc: '접근성, 전문성, 실용성을 바탕으로 최고의 AI 교육 경험을 제공합니다.' },
+    {
+      icon: 'bullseye',
+      iconBg: 'from-sky/20 to-sky/5 dark:from-sky/25 dark:to-navy-800',
+      iconColor: 'text-sky dark:text-sky-light',
+      title: '미션',
+      desc: '모든 사람이 AI를 이해하고 활용할 수 있는 세상을 만들어 갑니다.',
+    },
+    {
+      icon: 'rocket',
+      iconBg: 'from-teal/20 to-teal/5 dark:from-teal/25 dark:to-navy-800',
+      iconColor: 'text-teal dark:text-teal-light',
+      title: '비전',
+      desc: 'AI 리터러시 교육의 선두 주자로서 디지털 전환 시대의 교육 혁신을 이끕니다.',
+    },
+    {
+      icon: 'lightbulb',
+      iconBg: 'from-amber/20 to-amber/5 dark:from-amber/25 dark:to-navy-800',
+      iconColor: 'text-amber-dark dark:text-amber-light',
+      title: '핵심 가치',
+      desc: '접근성, 전문성, 실용성을 바탕으로 최고의 AI 교육 경험을 제공합니다.',
+    },
   ]
   return (
     <div className="max-w-3xl">
@@ -105,7 +125,9 @@ function VisionTab() {
         {items.map((item, i) => (
           <Reveal key={item.title} delay={i * 100} direction="up">
             <div className="card flex gap-5 p-6">
-              <span className="text-3xl shrink-0">{item.icon}</span>
+              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${item.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
+                <Icon name={item.icon} size={22} className={item.iconColor} />
+              </div>
               <div>
                 <h3 className="font-bold text-navy-900 dark:text-white mb-2">{item.title}</h3>
                 <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{item.desc}</p>
@@ -120,10 +142,38 @@ function VisionTab() {
 
 function TeamTab() {
   const members = [
-    { name: '김AI', role: 'CEO / AI 전문가', emoji: '👨‍💼', desc: '10년 이상의 AI 연구 및 교육 경험' },
-    { name: '이리터', role: 'CTO / 교육 설계', emoji: '👩‍💻', desc: '에듀테크 전문가, 커리큘럼 설계' },
-    { name: '박미래', role: '콘텐츠 디렉터', emoji: '🎬', desc: '유튜브 콘텐츠 기획 및 제작' },
-    { name: '최학습', role: '강사 / 연구원', emoji: '👨‍🏫', desc: 'AI 리터러시 교육 전문 강사' },
+    {
+      name: '김AI',
+      role: 'CEO / AI 전문가',
+      icon: 'user-tie',
+      iconBg: 'from-sky/20 to-sky/5 dark:from-sky/25 dark:to-navy-800',
+      iconColor: 'text-sky dark:text-sky-light',
+      desc: '10년 이상의 AI 연구 및 교육 경험',
+    },
+    {
+      name: '이리터',
+      role: 'CTO / 교육 설계',
+      icon: 'laptop-code',
+      iconBg: 'from-teal/20 to-teal/5 dark:from-teal/25 dark:to-navy-800',
+      iconColor: 'text-teal dark:text-teal-light',
+      desc: '에듀테크 전문가, 커리큘럼 설계',
+    },
+    {
+      name: '박미래',
+      role: '콘텐츠 디렉터',
+      icon: 'clapperboard',
+      iconBg: 'from-amber/20 to-amber/5 dark:from-amber/25 dark:to-navy-800',
+      iconColor: 'text-amber-dark dark:text-amber-light',
+      desc: '유튜브 콘텐츠 기획 및 제작',
+    },
+    {
+      name: '최학습',
+      role: '강사 / 연구원',
+      icon: 'chalkboard-user',
+      iconBg: 'from-sky/10 to-teal/5 dark:from-navy-700/50 dark:to-navy-800',
+      iconColor: 'text-navy-700 dark:text-sky-light',
+      desc: 'AI 리터러시 교육 전문 강사',
+    },
   ]
   return (
     <div>
@@ -134,7 +184,9 @@ function TeamTab() {
         {members.map((m, i) => (
           <Reveal key={m.name} delay={i * 90} direction="up">
             <div className="card text-center p-6 hover:-translate-y-2 transition-transform duration-300 h-full">
-              <div className="text-5xl mb-3">{m.emoji}</div>
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${m.iconBg} flex items-center justify-center mx-auto mb-4`}>
+                <Icon name={m.icon} size={28} className={m.iconColor} />
+              </div>
               <h3 className="font-bold text-navy-900 dark:text-white">{m.name}</h3>
               <p className="text-sm text-sky dark:text-sky-light font-medium mt-1">{m.role}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{m.desc}</p>

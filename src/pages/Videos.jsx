@@ -4,8 +4,17 @@ import { videoCategories, videos } from '../data/site'
 import VideoCard from '../components/VideoCard'
 import VideoModal from '../components/VideoModal'
 import Reveal from '../components/Reveal'
+import Icon from '../components/Icon'
 
 const VIDEOS_PER_PAGE = 6
+
+const CAT_ICON_COLOR = {
+  'ai-basics':     'text-sky',
+  'ai-literacy':   'text-teal',
+  'generative-ai': 'text-amber-light',
+  'ai-tools':      'text-sky-light',
+  'ai-future':     'text-teal-light',
+}
 
 export default function Videos() {
   const { category } = useParams()
@@ -41,7 +50,9 @@ export default function Videos() {
           </nav>
 
           <div className="hero-anim hero-d1 flex items-center gap-4">
-            <span className="text-4xl">{catInfo.icon}</span>
+            <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center shrink-0">
+              <Icon name={catInfo.icon} size={28} className={CAT_ICON_COLOR[category] || 'text-white'} />
+            </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-extrabold text-white">{catInfo.label}</h1>
               <p className="text-white/60 mt-1">{catInfo.description}</p>
@@ -61,9 +72,9 @@ export default function Videos() {
                     : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white'
                 }`}
               >
-                <span>{cat.icon}</span>
+                <Icon name={cat.icon} size={13} className={cat.id === category ? 'text-navy-700' : 'text-white/70'} />
                 {cat.label}
-                <span className={`text-xs ml-1 ${cat.id === category ? 'text-navy-500' : 'text-white/40'}`}>
+                <span className={`text-xs ml-0.5 ${cat.id === category ? 'text-navy-500' : 'text-white/40'}`}>
                   {videos[cat.id]?.length || 0}
                 </span>
               </Link>
@@ -76,14 +87,13 @@ export default function Videos() {
       <div className="container-wrap section-x py-12">
         <Reveal className="flex items-center justify-between mb-8">
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            총 <span className="font-bold text-navy-700 dark:text-sky-light">{allVideos.length}</span>개 강의
+            총 <span className="font-bold text-navy-700 dark:text-sky-light">{allVideos.length}</span>개 영상
             {totalPages > 1 && <span className="ml-2">({page} / {totalPages} 페이지)</span>}
           </p>
         </Reveal>
 
         {pageVideos.length > 0 ? (
           <>
-            {/* 2×3 그리드 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {pageVideos.map((video, i) => (
                 <Reveal key={video.id} delay={i * 80} direction="up">
@@ -92,7 +102,6 @@ export default function Videos() {
               ))}
             </div>
 
-            {/* 페이지네이션 */}
             {totalPages > 1 && (
               <Reveal className="flex items-center justify-center gap-2 mt-12">
                 <button
@@ -139,9 +148,11 @@ export default function Videos() {
           </>
         ) : (
           <Reveal className="text-center py-24">
-            <div className="text-6xl mb-4">📭</div>
-            <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">강의를 준비 중입니다</h3>
-            <p className="text-gray-500 dark:text-gray-400">곧 새로운 강의가 업로드될 예정입니다.</p>
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-50 dark:from-navy-800 dark:to-navy-700 flex items-center justify-center mx-auto mb-4">
+              <Icon name="box-open" size={28} className="text-gray-400 dark:text-gray-500" />
+            </div>
+            <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">영상을 준비 중입니다</h3>
+            <p className="text-gray-500 dark:text-gray-400">곧 새로운 영상이 추가될 예정입니다.</p>
           </Reveal>
         )}
       </div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { siteConfig, videoCategories } from '../data/site'
+import Icon from './Icon'
 
 export default function Footer() {
   return (
@@ -56,7 +57,7 @@ export default function Footer() {
                     to={`/videos/${cat.id}`}
                     className="flex items-center gap-2 text-sm text-gray-400 hover:text-sky transition-colors"
                   >
-                    <span>{cat.icon}</span>
+                    <Icon name={cat.icon} size={12} className="text-sky shrink-0" />
                     {cat.label}
                   </Link>
                 </li>

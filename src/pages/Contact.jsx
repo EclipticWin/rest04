@@ -2,6 +2,31 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { siteConfig } from '../data/site'
 import Reveal from '../components/Reveal'
+import Icon from '../components/Icon'
+
+const contactItems = [
+  {
+    icon: 'location',
+    iconBg: 'from-sky/20 to-sky/5 dark:from-sky/25 dark:to-navy-800',
+    iconColor: 'text-sky dark:text-sky-light',
+    label: '주소',
+    value: siteConfig.address,
+  },
+  {
+    icon: 'phone',
+    iconBg: 'from-teal/20 to-teal/5 dark:from-teal/25 dark:to-navy-800',
+    iconColor: 'text-teal dark:text-teal-light',
+    label: '전화',
+    value: siteConfig.phone,
+  },
+  {
+    icon: 'envelope',
+    iconBg: 'from-amber/20 to-amber/5 dark:from-amber/25 dark:to-navy-800',
+    iconColor: 'text-amber-dark dark:text-amber-light',
+    label: '이메일',
+    value: siteConfig.email,
+  },
+]
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -32,18 +57,18 @@ export default function Contact() {
       {/* Content */}
       <div className="container-wrap section-x py-14">
         <div className="grid lg:grid-cols-3 gap-12">
+
           {/* Contact Info */}
           <Reveal direction="left">
-            <div className="space-y-6">
-              <h2 className="section-title text-2xl">연락처</h2>
-              {[
-                { icon: '📍', label: '주소', value: siteConfig.address },
-                { icon: '📞', label: '전화', value: siteConfig.phone },
-                { icon: '✉️', label: '이메일', value: siteConfig.email },
-              ].map((item, i) => (
+            <div className="space-y-5">
+              <h2 className="section-title text-2xl mb-6">연락처</h2>
+
+              {contactItems.map((item, i) => (
                 <Reveal key={item.label} delay={i * 80} direction="left">
-                  <div className="flex gap-4">
-                    <span className="text-2xl">{item.icon}</span>
+                  <div className="flex items-start gap-4">
+                    <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${item.iconBg} flex items-center justify-center shrink-0`}>
+                      <Icon name={item.icon} size={18} className={item.iconColor} />
+                    </div>
                     <div>
                       <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">{item.label}</p>
                       <p className="text-sm text-navy-900 dark:text-gray-200 mt-1">{item.value}</p>
@@ -53,17 +78,15 @@ export default function Contact() {
               ))}
 
               <Reveal direction="left" delay={320}>
-                <div className="pt-4 border-t border-gray-100 dark:border-navy-800">
+                <div className="pt-5 border-t border-gray-100 dark:border-navy-800">
                   <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">SNS</p>
                   <a
                     href={siteConfig.social.youtube}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-red-500 hover:text-red-400 font-semibold transition-colors"
+                    className="inline-flex items-center gap-2.5 text-sm text-red-500 hover:text-red-400 font-semibold transition-colors"
                   >
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
+                    <Icon name="youtube" size={18} className="text-red-500" />
                     유튜브 채널 방문
                   </a>
                 </div>
@@ -75,7 +98,9 @@ export default function Contact() {
           <Reveal direction="right" delay={100} className="lg:col-span-2">
             {submitted ? (
               <div className="card p-10 text-center">
-                <div className="text-5xl mb-4">✅</div>
+                <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-teal/20 to-sky/10 dark:from-teal/25 dark:to-navy-800 flex items-center justify-center mx-auto mb-5">
+                  <Icon name="circle-check" size={40} className="text-teal dark:text-teal-light" />
+                </div>
                 <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">문의가 접수되었습니다</h3>
                 <p className="text-gray-500 dark:text-gray-400 mb-6">빠른 시일 내에 이메일로 답변 드리겠습니다.</p>
                 <button
@@ -148,9 +173,7 @@ export default function Contact() {
 
                 <button type="submit" className="btn-primary w-full justify-center py-3.5">
                   문의 보내기
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
+                  <Icon name="envelope" size={16} className="ml-1" />
                 </button>
               </form>
             )}
