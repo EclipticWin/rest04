@@ -42,7 +42,7 @@ export default function Home() {
       <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-gradient-hero">
         {/* 배경 사진 — 연하게 */}
         <img
-          src="/igor-omilaev-eGGFZ5X2LnA-unsplash.jpg"
+          src={`${import.meta.env.BASE_URL}igor-omilaev-eGGFZ5X2LnA-unsplash.jpg`}
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"

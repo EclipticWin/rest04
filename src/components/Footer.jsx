@@ -116,13 +116,13 @@ export default function Footer() {
         </div>
         {/* 사진 출처 */}
         <div className="container-wrap section-x pb-3 text-right">
-          <span className="text-[10px] text-navy-700 select-none">
-            Photo by{' '}
+          <span className="text-[10px] text-navy-600 select-none">
+            Hero photo by{' '}
             <a
               href="https://unsplash.com/@omilaev"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-navy-500 transition-colors"
+              className="underline underline-offset-2 hover:text-gray-400 transition-colors"
             >
               Igor Omilaev
             </a>
@@ -131,7 +131,7 @@ export default function Footer() {
               href="https://unsplash.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-navy-500 transition-colors"
+              className="underline underline-offset-2 hover:text-gray-400 transition-colors"
             >
               Unsplash
             </a>
