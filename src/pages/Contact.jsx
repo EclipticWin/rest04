@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { siteConfig } from '../data/site'
+import Reveal from '../components/Reveal'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -23,8 +24,8 @@ export default function Contact() {
             </svg>
             <span className="text-white/80">문의하기</span>
           </nav>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white mb-3">문의하기</h1>
-          <p className="text-white/60">강의 관련 문의나 협력 제안을 남겨주세요.</p>
+          <h1 className="hero-anim hero-d1 text-2xl md:text-3xl font-extrabold text-white mb-3">문의하기</h1>
+          <p className="hero-anim hero-d2 text-white/60">강의 관련 문의나 협력 제안을 남겨주세요.</p>
         </div>
       </div>
 
@@ -32,40 +33,46 @@ export default function Contact() {
       <div className="container-wrap section-x py-14">
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Contact Info */}
-          <div className="space-y-6">
-            <h2 className="section-title text-2xl">연락처</h2>
-            {[
-              { icon: '📍', label: '주소', value: siteConfig.address },
-              { icon: '📞', label: '전화', value: siteConfig.phone },
-              { icon: '✉️', label: '이메일', value: siteConfig.email },
-            ].map((item) => (
-              <div key={item.label} className="flex gap-4">
-                <span className="text-2xl">{item.icon}</span>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">{item.label}</p>
-                  <p className="text-sm text-navy-900 dark:text-gray-200 mt-1">{item.value}</p>
-                </div>
-              </div>
-            ))}
+          <Reveal direction="left">
+            <div className="space-y-6">
+              <h2 className="section-title text-2xl">연락처</h2>
+              {[
+                { icon: '📍', label: '주소', value: siteConfig.address },
+                { icon: '📞', label: '전화', value: siteConfig.phone },
+                { icon: '✉️', label: '이메일', value: siteConfig.email },
+              ].map((item, i) => (
+                <Reveal key={item.label} delay={i * 80} direction="left">
+                  <div className="flex gap-4">
+                    <span className="text-2xl">{item.icon}</span>
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">{item.label}</p>
+                      <p className="text-sm text-navy-900 dark:text-gray-200 mt-1">{item.value}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
 
-            <div className="pt-4 border-t border-gray-100 dark:border-navy-800">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">SNS</p>
-              <a
-                href={siteConfig.social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-red-500 hover:text-red-400 font-semibold transition-colors"
-              >
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                유튜브 채널 방문
-              </a>
+              <Reveal direction="left" delay={320}>
+                <div className="pt-4 border-t border-gray-100 dark:border-navy-800">
+                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">SNS</p>
+                  <a
+                    href={siteConfig.social.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-red-500 hover:text-red-400 font-semibold transition-colors"
+                  >
+                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    유튜브 채널 방문
+                  </a>
+                </div>
+              </Reveal>
             </div>
-          </div>
+          </Reveal>
 
           {/* Form */}
-          <div className="lg:col-span-2">
+          <Reveal direction="right" delay={100} className="lg:col-span-2">
             {submitted ? (
               <div className="card p-10 text-center">
                 <div className="text-5xl mb-4">✅</div>
@@ -147,7 +154,7 @@ export default function Contact() {
                 </button>
               </form>
             )}
-          </div>
+          </Reveal>
         </div>
       </div>
     </div>

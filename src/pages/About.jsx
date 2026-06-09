@@ -1,5 +1,6 @@
 import { useParams, Navigate, Link } from 'react-router-dom'
 import { siteConfig } from '../data/site'
+import Reveal from '../components/Reveal'
 
 const tabs = [
   { id: 'intro', label: '회사 소개' },
@@ -27,10 +28,10 @@ export default function About() {
             </svg>
             <span className="text-white/80">회사소개</span>
           </nav>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white mb-8">회사소개</h1>
+          <h1 className="hero-anim hero-d1 text-2xl md:text-3xl font-extrabold text-white mb-8">회사소개</h1>
 
           {/* Tabs */}
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          <div className="hero-anim hero-d2 flex gap-2 overflow-x-auto pb-1">
             {tabs.map((t) => (
               <Link
                 key={t.id}
@@ -63,7 +64,7 @@ function IntroTab() {
   return (
     <div className="max-w-4xl">
       <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-        <div>
+        <Reveal direction="left">
           <h2 className="text-3xl font-extrabold text-navy-900 dark:text-white mb-6">
             AI 교육으로<br />
             <span className="text-gradient">미래를 열다</span>
@@ -74,14 +75,16 @@ function IntroTab() {
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
             AI 기초 이론부터 실무 활용까지, 전문가가 직접 제작한 강의로 빠르게 AI 역량을 키울 수 있습니다. 유튜브를 통해 언제 어디서든 무료로 학습하세요.
           </p>
-        </div>
-        <div className="card p-8 bg-gradient-to-br from-navy-700 to-navy-900 text-white">
-          <div className="text-5xl mb-4">🎓</div>
-          <h3 className="text-xl font-bold mb-3">전문 AI 교육</h3>
-          <p className="text-white/70 text-sm leading-relaxed">
-            현직 AI 전문가와 교육 전문가가 함께 설계한 커리큘럼으로 실질적인 AI 역량을 키웁니다.
-          </p>
-        </div>
+        </Reveal>
+        <Reveal direction="right" delay={120}>
+          <div className="card p-8 bg-gradient-to-br from-navy-700 to-navy-900 text-white">
+            <div className="text-5xl mb-4">🎓</div>
+            <h3 className="text-xl font-bold mb-3">전문 AI 교육</h3>
+            <p className="text-white/70 text-sm leading-relaxed">
+              현직 AI 전문가와 교육 전문가가 함께 설계한 커리큘럼으로 실질적인 AI 역량을 키웁니다.
+            </p>
+          </div>
+        </Reveal>
       </div>
     </div>
   )
@@ -95,16 +98,20 @@ function VisionTab() {
   ]
   return (
     <div className="max-w-3xl">
-      <h2 className="section-title mb-8">비전 & 미션</h2>
+      <Reveal>
+        <h2 className="section-title mb-8">비전 & 미션</h2>
+      </Reveal>
       <div className="space-y-6">
-        {items.map((item) => (
-          <div key={item.title} className="card flex gap-5 p-6">
-            <span className="text-3xl shrink-0">{item.icon}</span>
-            <div>
-              <h3 className="font-bold text-navy-900 dark:text-white mb-2">{item.title}</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{item.desc}</p>
+        {items.map((item, i) => (
+          <Reveal key={item.title} delay={i * 100} direction="up">
+            <div className="card flex gap-5 p-6">
+              <span className="text-3xl shrink-0">{item.icon}</span>
+              <div>
+                <h3 className="font-bold text-navy-900 dark:text-white mb-2">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{item.desc}</p>
+              </div>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </div>
@@ -120,15 +127,19 @@ function TeamTab() {
   ]
   return (
     <div>
-      <h2 className="section-title mb-8">팀 소개</h2>
+      <Reveal>
+        <h2 className="section-title mb-8">팀 소개</h2>
+      </Reveal>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {members.map((m) => (
-          <div key={m.name} className="card text-center p-6">
-            <div className="text-5xl mb-3">{m.emoji}</div>
-            <h3 className="font-bold text-navy-900 dark:text-white">{m.name}</h3>
-            <p className="text-sm text-sky dark:text-sky-light font-medium mt-1">{m.role}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{m.desc}</p>
-          </div>
+        {members.map((m, i) => (
+          <Reveal key={m.name} delay={i * 90} direction="up">
+            <div className="card text-center p-6 hover:-translate-y-2 transition-transform duration-300 h-full">
+              <div className="text-5xl mb-3">{m.emoji}</div>
+              <h3 className="font-bold text-navy-900 dark:text-white">{m.name}</h3>
+              <p className="text-sm text-sky dark:text-sky-light font-medium mt-1">{m.role}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{m.desc}</p>
+            </div>
+          </Reveal>
         ))}
       </div>
     </div>
@@ -143,22 +154,26 @@ function HistoryTab() {
   ]
   return (
     <div className="max-w-2xl">
-      <h2 className="section-title mb-10">연혁</h2>
+      <Reveal>
+        <h2 className="section-title mb-10">연혁</h2>
+      </Reveal>
       <div className="space-y-8">
-        {timeline.map((item) => (
-          <div key={item.year} className="flex gap-6">
-            <div className="shrink-0 w-16 text-right">
-              <span className="text-lg font-extrabold text-navy-700 dark:text-sky-light">{item.year}</span>
+        {timeline.map((item, i) => (
+          <Reveal key={item.year} delay={i * 120} direction="left">
+            <div className="flex gap-6">
+              <div className="shrink-0 w-16 text-right">
+                <span className="text-lg font-extrabold text-navy-700 dark:text-sky-light">{item.year}</span>
+              </div>
+              <div className="relative pl-6 border-l-2 border-gray-200 dark:border-navy-700">
+                <div className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full bg-navy-700 dark:bg-sky" />
+                <ul className="space-y-2">
+                  {item.events.map((e) => (
+                    <li key={e} className="text-sm text-gray-600 dark:text-gray-300">{e}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="relative pl-6 border-l-2 border-gray-200 dark:border-navy-700">
-              <div className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full bg-navy-700 dark:bg-sky" />
-              <ul className="space-y-2">
-                {item.events.map((e) => (
-                  <li key={e} className="text-sm text-gray-600 dark:text-gray-300">{e}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </div>

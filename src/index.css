@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     @apply font-sans antialiased;
@@ -16,45 +14,93 @@
 }
 
 @layer components {
-  .section-x {
-    @apply px-4 md:px-8 lg:px-16 xl:px-24;
-  }
-
-  .container-wrap {
-    @apply max-w-container mx-auto;
-  }
+  .section-x       { @apply px-4 md:px-8 lg:px-16 xl:px-24; }
+  .container-wrap  { @apply max-w-container mx-auto; }
 
   .btn-primary {
     @apply inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold text-white;
-    @apply bg-navy-700 hover:bg-navy-600;
-    @apply transition-all duration-200 shadow-md hover:shadow-lg;
+    @apply bg-navy-700 hover:bg-navy-600 transition-all duration-200 shadow-md hover:shadow-lg;
   }
-
   .btn-outline {
     @apply inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold;
-    @apply border-2 border-navy-700 text-navy-700;
-    @apply hover:bg-navy-700 hover:text-white;
+    @apply border-2 border-navy-700 text-navy-700 hover:bg-navy-700 hover:text-white;
     @apply dark:border-sky dark:text-sky dark:hover:bg-sky dark:hover:text-white;
     @apply transition-all duration-200;
   }
-
   .card {
-    @apply rounded-2xl overflow-hidden;
-    @apply bg-white shadow-md hover:shadow-xl;
-    @apply dark:bg-navy-800;
-    @apply transition-all duration-300;
+    @apply rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl;
+    @apply dark:bg-navy-800 transition-all duration-300;
   }
+  .section-title { @apply text-3xl md:text-4xl font-bold tracking-tight text-navy-900 dark:text-white; }
+  .section-sub   { @apply text-lg text-gray-500 dark:text-gray-400 mt-3; }
+}
 
-  .section-title {
-    @apply text-3xl md:text-4xl font-bold tracking-tight;
-    @apply text-navy-900 dark:text-white;
-  }
+/* ═══════════════════════════════════════════
+   히어로 입장 애니메이션 (페이지 로드 시)
+   ═══════════════════════════════════════════ */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
-  .section-sub {
-    @apply text-lg text-gray-500 dark:text-gray-400 mt-3;
+.hero-anim {
+  opacity: 0;
+  animation: heroFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-anim-fade {
+  opacity: 0;
+  animation: heroFadeIn 1s ease forwards;
+}
+.hero-d1 { animation-delay: 0.05s; }
+.hero-d2 { animation-delay: 0.20s; }
+.hero-d3 { animation-delay: 0.38s; }
+.hero-d4 { animation-delay: 0.55s; }
+.hero-d5 { animation-delay: 0.72s; }
+
+/* ═══════════════════════════════════════════
+   스크롤 Reveal 애니메이션
+   ═══════════════════════════════════════════ */
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-fade,
+.reveal-scale {
+  opacity: 0;
+  transition:
+    opacity  0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-up    { transform: translateY(48px); }
+.reveal-left  { transform: translateX(-52px); }
+.reveal-right { transform: translateX(52px); }
+.reveal-fade  { transform: none; }
+.reveal-scale { transform: scale(0.90); }
+
+.revealed {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* 모션 감소 설정 존중 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up, .reveal-left, .reveal-right,
+  .reveal-fade, .reveal-scale, .hero-anim, .hero-anim-fade {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
   }
 }
 
+/* ═══════════════════════════════════════════
+   그라디언트 / 텍스트
+   ═══════════════════════════════════════════ */
 .text-gradient {
   background: linear-gradient(135deg, #3B82F6, #14B8A6);
   -webkit-background-clip: text;
@@ -62,10 +108,13 @@
   background-clip: text;
 }
 
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { @apply bg-gray-100 dark:bg-navy-900; }
-::-webkit-scrollbar-thumb { @apply bg-navy-400 dark:bg-navy-600 rounded-full; }
-::-webkit-scrollbar-thumb:hover { @apply bg-navy-600 dark:bg-navy-500; }
+/* ═══════════════════════════════════════════
+   유틸리티
+   ═══════════════════════════════════════════ */
+::-webkit-scrollbar            { width: 6px; height: 6px; }
+::-webkit-scrollbar-track      { @apply bg-gray-100 dark:bg-navy-900; }
+::-webkit-scrollbar-thumb      { @apply bg-navy-400 dark:bg-navy-600 rounded-full; }
+::-webkit-scrollbar-thumb:hover{ @apply bg-navy-600 dark:bg-navy-500; }
 
 .video-embed-wrapper {
   position: relative;
@@ -82,6 +131,6 @@
 
 .modal-overlay {
   @apply fixed inset-0 z-50 flex items-center justify-center p-4;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0,0,0,0.85);
   backdrop-filter: blur(4px);
 }
