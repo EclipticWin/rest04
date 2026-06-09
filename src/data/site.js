@@ -16,7 +16,6 @@ export const siteConfig = {
 
 // 내비게이션 메뉴
 export const navMenu = [
-  { label: '홈', path: '/' },
   {
     label: '동영상 강의',
     path: '/videos',
