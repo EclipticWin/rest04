@@ -1,0 +1,24 @@
+{
+  "name": "rest04",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "AI 교육 플랫폼 - 온라인 동영상 콘텐츠 제공 교육회사 사이트",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "vite": "^5.4.8"
+  }
+}
