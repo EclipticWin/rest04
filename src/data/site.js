@@ -271,11 +271,11 @@ export const videos = {
     },
     {
       id: 'ga-02',
-      title: 'Diffusion Models Explained Simply | How AI Generates Images from Noise',
-      description: '노이즈에서 이미지를 만드는 디퓨전 모델의 원리를 쉽고 직관적으로 설명.',
-      youtubeId: 'vsoPfCo1CpE',
-      duration: '13:45',
-      date: '2026-02-02',
+      title: 'How Does Stable Diffusion Work? – Latent Diffusion Models Explained',
+      description: '텍스트에서 이미지를 생성하는 Stable Diffusion의 잠재 공간 디퓨전 모델 원리 심층 해설.',
+      youtubeId: 'J87hffSMB60',
+      duration: '16:23',
+      date: '2022-08-31',
       level: '초급',
     },
     {

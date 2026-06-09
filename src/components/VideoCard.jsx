@@ -7,12 +7,18 @@ const LEVEL_COLORS = {
   고급: 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400',
 }
 
+const THUMB_SIZES = ['maxresdefault', 'hqdefault', 'mqdefault']
+
 export default function VideoCard({ video, onPlay }) {
-  const [imgErr, setImgErr] = useState(false)
+  const [thumbIdx, setThumbIdx] = useState(0)
   const isPlaceholder = !video.youtubeId || video.youtubeId.startsWith('YOUTUBE_VIDEO_ID')
   const thumbUrl = isPlaceholder
     ? null
-    : `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`
+    : `https://img.youtube.com/vi/${video.youtubeId}/${THUMB_SIZES[thumbIdx]}.jpg`
+
+  const handleImgError = () => {
+    if (thumbIdx < THUMB_SIZES.length - 1) setThumbIdx(i => i + 1)
+  }
 
   return (
     <div className="card group flex flex-col h-full">
@@ -21,15 +27,17 @@ export default function VideoCard({ video, onPlay }) {
         className="relative overflow-hidden cursor-pointer aspect-video bg-navy-900"
         onClick={() => !isPlaceholder && onPlay && onPlay(video)}
       >
-        {!isPlaceholder && !imgErr ? (
+        {!isPlaceholder ? (
           <img
+            key={thumbIdx}
             src={thumbUrl}
             alt={video.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            onError={() => setImgErr(true)}
+            onError={handleImgError}
           />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-navy-800 to-navy-900 text-gray-500">
+
             <svg className="h-10 w-10 mb-2 text-navy-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
