@@ -11,15 +11,12 @@
     />
     <title>AILearn · AI 교육 플랫폼</title>
     <script>
-      // 다크모드 & 팔레트 초기 적용 (깜빡임 방지)
       ;(function () {
         const saved = localStorage.getItem('theme')
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
         if (saved === 'dark' || (!saved && prefersDark)) {
           document.documentElement.classList.add('dark')
         }
-        const palette = localStorage.getItem('palette') || 'ocean'
-        document.documentElement.dataset.palette = palette
       })()
     </script>
   </head>

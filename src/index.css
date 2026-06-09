@@ -2,133 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ═══════════════════════════════════════════════════
-   팔레트 CSS 변수 (콤마 구분 RGB - rgba() 투명도 지원)
-   ═══════════════════════════════════════════════════ */
-
-/* 1. 오션 (기본) - 딥 네이비 + 로열 블루 + 스카이 */
-:root, [data-palette="ocean"] {
-  --p-50:  232,238,247;
-  --p-100: 197,208,232;
-  --p-200: 158,177,222;
-  --p-300: 116,146,200;
-  --p-400: 79,130,197;
-  --p-500: 53,98,170;
-  --p-600: 43,82,163;
-  --p-700: 30,58,138;     /* Royal Blue */
-  --p-800: 21,44,110;
-  --p-900: 15,27,45;      /* Deep Navy */
-  --p-950: 7,14,26;
-  --ac:    59,130,246;    /* Sky Blue */
-  --ac-l:  96,165,250;
-  --ac-d:  37,99,235;
-  --ac2:   13,148,136;    /* Teal */
-  --ac2-l: 20,184,166;
-  --ac2-d: 15,118,110;
-  --hl:    245,158,11;    /* Amber */
-  --hl-l:  252,211,77;
-  --hl-d:  217,119,6;
-}
-
-/* 2. 바이올렛 - 딥 퍼플 + 바이올렛 + 핑크 */
-[data-palette="violet"] {
-  --p-50:  245,243,255;
-  --p-100: 237,233,254;
-  --p-200: 221,214,254;
-  --p-300: 196,181,253;
-  --p-400: 167,139,250;
-  --p-500: 139,92,246;
-  --p-600: 109,40,217;
-  --p-700: 76,29,149;     /* Deep Purple */
-  --p-800: 46,16,101;
-  --p-900: 30,10,75;
-  --p-950: 13,5,35;
-  --ac:    139,92,246;    /* Violet */
-  --ac-l:  167,139,250;
-  --ac-d:  124,58,237;
-  --ac2:   236,72,153;    /* Pink */
-  --ac2-l: 244,114,182;
-  --ac2-d: 219,39,119;
-  --hl:    234,179,8;     /* Gold */
-  --hl-l:  253,224,71;
-  --hl-d:  202,138,4;
-}
-
-/* 3. 포레스트 - 다크 그린 + 에메랄드 + 라임 */
-[data-palette="forest"] {
-  --p-50:  240,253,244;
-  --p-100: 220,252,231;
-  --p-200: 187,247,208;
-  --p-300: 134,239,172;
-  --p-400: 74,222,128;
-  --p-500: 34,197,94;
-  --p-600: 22,163,74;
-  --p-700: 22,101,52;     /* Forest Green */
-  --p-800: 20,83,45;
-  --p-900: 5,46,22;
-  --p-950: 2,12,6;
-  --ac:    34,197,94;     /* Emerald */
-  --ac-l:  74,222,128;
-  --ac-d:  22,163,74;
-  --ac2:   132,204,22;    /* Lime */
-  --ac2-l: 163,230,53;
-  --ac2-d: 101,163,13;
-  --hl:    249,115,22;    /* Orange */
-  --hl-l:  251,146,60;
-  --hl-d:  234,88,12;
-}
-
-/* 4. 선셋 - 다크 크림슨 + 로즈 + 오렌지 */
-[data-palette="sunset"] {
-  --p-50:  255,241,242;
-  --p-100: 255,228,230;
-  --p-200: 254,205,211;
-  --p-300: 253,164,175;
-  --p-400: 251,113,133;
-  --p-500: 244,63,94;
-  --p-600: 225,29,72;
-  --p-700: 153,27,27;     /* Crimson */
-  --p-800: 100,20,20;
-  --p-900: 69,10,10;
-  --p-950: 28,3,3;
-  --ac:    244,63,94;     /* Rose */
-  --ac-l:  251,113,133;
-  --ac-d:  225,29,72;
-  --ac2:   251,146,60;    /* Orange */
-  --ac2-l: 253,186,116;
-  --ac2-d: 234,88,12;
-  --hl:    234,179,8;     /* Gold */
-  --hl-l:  253,224,71;
-  --hl-d:  202,138,4;
-}
-
-/* 5. 아틱 - 스틸 블루 + 사이안 + 퍼플 */
-[data-palette="arctic"] {
-  --p-50:  240,249,255;
-  --p-100: 224,242,254;
-  --p-200: 186,230,253;
-  --p-300: 125,211,252;
-  --p-400: 56,189,248;
-  --p-500: 14,165,233;
-  --p-600: 3,130,200;
-  --p-700: 7,89,133;      /* Steel Blue */
-  --p-800: 12,74,110;
-  --p-900: 8,47,73;
-  --p-950: 4,13,20;
-  --ac:    6,182,212;     /* Cyan */
-  --ac-l:  34,211,238;
-  --ac-d:  8,145,178;
-  --ac2:   124,58,237;    /* Purple */
-  --ac2-l: 139,92,246;
-  --ac2-d: 109,40,217;
-  --hl:    16,185,129;    /* Emerald */
-  --hl-l:  52,211,153;
-  --hl-d:  5,150,105;
-}
-
-/* ═══════════════════════════════════════════════════
-   기본 스타일
-   ═══════════════════════════════════════════════════ */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -154,7 +27,6 @@
   .btn-primary {
     @apply inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold text-white;
     @apply bg-navy-700 hover:bg-navy-600;
-    @apply dark:bg-navy-700 dark:hover:bg-navy-600;
     @apply transition-all duration-200 shadow-md hover:shadow-lg;
   }
 
@@ -169,7 +41,7 @@
   .card {
     @apply rounded-2xl overflow-hidden;
     @apply bg-white shadow-md hover:shadow-xl;
-    @apply dark:bg-navy-800 dark:shadow-navy-900;
+    @apply dark:bg-navy-800;
     @apply transition-all duration-300;
   }
 
@@ -181,51 +53,15 @@
   .section-sub {
     @apply text-lg text-gray-500 dark:text-gray-400 mt-3;
   }
-
-  .tab-btn {
-    @apply px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-200;
-    @apply text-gray-600 hover:text-navy-700 hover:bg-navy-50;
-    @apply dark:text-gray-400 dark:hover:text-sky dark:hover:bg-navy-800;
-  }
-
-  .tab-btn-active {
-    @apply bg-navy-700 text-white hover:bg-navy-600 hover:text-white;
-    @apply dark:bg-sky-dark dark:text-white dark:hover:bg-sky;
-  }
 }
 
-/* ═══════════════════════════════════════════════════
-   동적 그라디언트 (팔레트 연동)
-   ═══════════════════════════════════════════════════ */
-.bg-gradient-hero {
-  background-image: linear-gradient(
-    160deg,
-    rgb(var(--p-900)) 0%,
-    rgb(var(--p-700)) 60%,
-    rgb(var(--ac2)) 100%
-  );
-}
-
-.bg-gradient-brand {
-  background-image: linear-gradient(
-    135deg,
-    rgb(var(--p-900)) 0%,
-    rgb(var(--p-700)) 50%,
-    rgb(var(--ac)) 100%
-  );
-}
-
-/* 텍스트 그라디언트 */
 .text-gradient {
-  background: linear-gradient(135deg, rgb(var(--ac)), rgb(var(--ac2-l)));
+  background: linear-gradient(135deg, #3B82F6, #14B8A6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* ═══════════════════════════════════════════════════
-   유틸리티
-   ═══════════════════════════════════════════════════ */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { @apply bg-gray-100 dark:bg-navy-900; }
 ::-webkit-scrollbar-thumb { @apply bg-navy-400 dark:bg-navy-600 rounded-full; }

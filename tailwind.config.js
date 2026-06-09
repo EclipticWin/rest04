@@ -1,7 +1,3 @@
-// CSS 변수 기반 색상 - 팔레트 전환 시 전체 테마 색상 자동 변경
-const rgb = (v) => ({ opacityValue }) =>
-  opacityValue !== undefined ? `rgba(var(${v}), ${opacityValue})` : `rgb(var(${v}))`
-
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   darkMode: 'class',
@@ -9,32 +5,32 @@ export default {
     extend: {
       colors: {
         navy: {
-          50:  rgb('--p-50'),
-          100: rgb('--p-100'),
-          200: rgb('--p-200'),
-          300: rgb('--p-300'),
-          400: rgb('--p-400'),
-          500: rgb('--p-500'),
-          600: rgb('--p-600'),
-          700: rgb('--p-700'),
-          800: rgb('--p-800'),
-          900: rgb('--p-900'),
-          950: rgb('--p-950'),
+          50:  '#e8eef7',
+          100: '#c5d0e8',
+          200: '#9eb1d8',
+          300: '#7492c8',
+          400: '#507ab9',
+          500: '#3562aa',
+          600: '#2B4F8E',
+          700: '#1E3A8A',
+          800: '#152A6E',
+          900: '#0F1B2D',
+          950: '#070e1a',
         },
         sky: {
-          DEFAULT: rgb('--ac'),
-          light:   rgb('--ac-l'),
-          dark:    rgb('--ac-d'),
+          DEFAULT: '#3B82F6',
+          light:   '#60A5FA',
+          dark:    '#2563EB',
         },
         teal: {
-          DEFAULT: rgb('--ac2'),
-          light:   rgb('--ac2-l'),
-          dark:    rgb('--ac2-d'),
+          DEFAULT: '#0D9488',
+          light:   '#14B8A6',
+          dark:    '#0F766E',
         },
         amber: {
-          DEFAULT: rgb('--hl'),
-          light:   rgb('--hl-l'),
-          dark:    rgb('--hl-d'),
+          DEFAULT: '#F59E0B',
+          light:   '#FCD34D',
+          dark:    '#D97706',
         },
       },
       fontFamily: {
@@ -42,6 +38,10 @@ export default {
       },
       maxWidth: {
         container: '1400px',
+      },
+      backgroundImage: {
+        'gradient-brand': 'linear-gradient(135deg, #0F1B2D 0%, #1E3A8A 50%, #3B82F6 100%)',
+        'gradient-hero':  'linear-gradient(160deg, #0F1B2D 0%, #1E3A8A 60%, #0D9488 100%)',
       },
     },
   },
