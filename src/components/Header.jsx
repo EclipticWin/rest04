@@ -4,10 +4,10 @@ import { useTheme } from '../context/ThemeContext'
 import { navMenu, videoCategories, siteConfig } from '../data/site'
 
 export default function Header() {
-  const { isDark, toggle } = useTheme()
+  const { isDark, toggle, palette, setPalette, palettes } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [openDropdown, setOpenDropdown] = useState(null)
+  const [openDropdown, setOpenDropdown] = useState(null) // 'videos' | 'palette' | null
   const location = useLocation()
   const dropdownRef = useRef(null)
 
@@ -33,6 +33,7 @@ export default function Header() {
   }, [])
 
   const isVideosActive = location.pathname.startsWith('/videos')
+  const currentPalette = palettes.find(p => p.id === palette) || palettes[0]
 
   return (
     <header
@@ -47,12 +48,11 @@ export default function Header() {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-sky text-white font-bold text-sm shadow-md group-hover:shadow-sky/40 transition-shadow">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-sky text-white font-bold text-sm shadow-md group-hover:shadow-lg transition-shadow">
               AI
             </div>
             <span className="text-xl font-extrabold tracking-tight text-navy-900 dark:text-white">
-              {siteConfig.name}
-              <span className="text-sky dark:text-sky-light">.</span>
+              {siteConfig.name}<span className="text-sky dark:text-sky-light">.</span>
             </span>
           </Link>
 
@@ -63,7 +63,7 @@ export default function Header() {
                 {item.children ? (
                   <>
                     <button
-                      onClick={() => setOpenDropdown(openDropdown === item.path ? null : item.path)}
+                      onClick={() => setOpenDropdown(openDropdown === 'videos' ? null : 'videos')}
                       className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
                         isVideosActive
                           ? 'text-navy-700 dark:text-sky-light bg-navy-50 dark:bg-navy-800'
@@ -71,17 +71,13 @@ export default function Header() {
                       }`}
                     >
                       {item.label}
-                      <svg
-                        className={`h-4 w-4 transition-transform duration-200 ${openDropdown === item.path ? 'rotate-180' : ''}`}
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-                      >
+                      <svg className={`h-4 w-4 transition-transform duration-200 ${openDropdown === 'videos' ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
 
-                    {openDropdown === item.path && (
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 rounded-2xl shadow-xl border overflow-hidden
-                                      bg-white dark:bg-navy-800 border-gray-100 dark:border-navy-700">
+                    {openDropdown === 'videos' && (
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 rounded-2xl shadow-xl border overflow-hidden bg-white dark:bg-navy-800 border-gray-100 dark:border-navy-700">
                         <div className="p-2">
                           {item.children.map((child) => {
                             const cat = videoCategories.find(c => `/videos/${c.id}` === child.path)
@@ -126,10 +122,43 @@ export default function Header() {
                 )}
               </div>
             ))}
+
+            {/* Palette Picker (desktop) */}
+            <div className="relative ml-1" ref={null}>
+              <PaletteButton
+                currentPalette={currentPalette}
+                isOpen={openDropdown === 'palette'}
+                onClick={() => setOpenDropdown(openDropdown === 'palette' ? null : 'palette')}
+              />
+              {openDropdown === 'palette' && (
+                <PaletteDropdown
+                  palettes={palettes}
+                  current={palette}
+                  onSelect={(id) => { setPalette(id); setOpenDropdown(null) }}
+                />
+              )}
+            </div>
           </nav>
 
           {/* Right Controls */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            {/* Palette Picker (mobile) */}
+            <div className="lg:hidden relative" ref={dropdownRef}>
+              <PaletteButton
+                currentPalette={currentPalette}
+                isOpen={openDropdown === 'palette-m'}
+                onClick={() => setOpenDropdown(openDropdown === 'palette-m' ? null : 'palette-m')}
+              />
+              {openDropdown === 'palette-m' && (
+                <PaletteDropdown
+                  palettes={palettes}
+                  current={palette}
+                  onSelect={(id) => { setPalette(id); setOpenDropdown(null) }}
+                  alignRight
+                />
+              )}
+            </div>
+
             {/* Dark Mode Toggle */}
             <button
               onClick={toggle}
@@ -149,7 +178,7 @@ export default function Header() {
               )}
             </button>
 
-            {/* Mobile Hamburger */}
+            {/* Hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden flex h-9 w-9 items-center justify-center rounded-lg transition-colors
@@ -158,11 +187,10 @@ export default function Header() {
               aria-label="메뉴 열기/닫기"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                {mobileOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                )}
+                {mobileOpen
+                  ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  : <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                }
               </svg>
             </button>
           </div>
@@ -221,5 +249,78 @@ export default function Header() {
         </div>
       )}
     </header>
+  )
+}
+
+/* ── 팔레트 버튼 ─────────────────────────────── */
+function PaletteButton({ currentPalette, isOpen, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors relative group
+                  text-gray-500 hover:bg-gray-100 dark:hover:bg-navy-800`}
+      aria-label="테마 색상 선택"
+      title="테마 색상"
+    >
+      {/* 현재 팔레트 미리보기 - 2×2 도트 */}
+      <div className="grid grid-cols-2 gap-0.5 w-5 h-5">
+        {currentPalette.preview.slice(0, 4).map((color, i) => (
+          <div
+            key={i}
+            className="rounded-sm"
+            style={{ backgroundColor: color }}
+          />
+        ))}
+      </div>
+      {/* 열림 표시 링 */}
+      {isOpen && (
+        <span className="absolute inset-0 rounded-lg ring-2 ring-navy-700 dark:ring-sky" />
+      )}
+    </button>
+  )
+}
+
+/* ── 팔레트 드롭다운 ──────────────────────────── */
+function PaletteDropdown({ palettes, current, onSelect, alignRight }) {
+  return (
+    <div className={`absolute top-full mt-2 w-44 rounded-2xl shadow-xl border overflow-hidden z-50
+                     bg-white dark:bg-navy-800 border-gray-100 dark:border-navy-700
+                     ${alignRight ? 'right-0' : 'left-1/2 -translate-x-1/2'}`}>
+      <div className="px-3 pt-3 pb-1.5 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+        테마 색상
+      </div>
+      <div className="p-2 space-y-0.5">
+        {palettes.map((p) => (
+          <button
+            key={p.id}
+            onClick={() => onSelect(p.id)}
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-colors text-left ${
+              current === p.id
+                ? 'bg-navy-50 dark:bg-navy-700'
+                : 'hover:bg-gray-50 dark:hover:bg-navy-700'
+            }`}
+          >
+            {/* 색상 스와치 4개 */}
+            <div className="flex gap-1 shrink-0">
+              {p.preview.map((color, i) => (
+                <div
+                  key={i}
+                  className="h-4 w-4 rounded-full shadow-sm"
+                  style={{ backgroundColor: color }}
+                />
+              ))}
+            </div>
+            <span className="text-sm font-semibold text-navy-900 dark:text-white flex-1">
+              {p.name}
+            </span>
+            {current === p.id && (
+              <svg className="h-4 w-4 text-navy-700 dark:text-sky shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            )}
+          </button>
+        ))}
+      </div>
+    </div>
   )
 }

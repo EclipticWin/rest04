@@ -161,31 +161,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Color Palette Showcase */}
-      <section className="py-20">
-        <div className="container-wrap section-x">
-          <div className="text-center mb-10">
-            <h2 className="section-title">컬러 팔레트</h2>
-            <p className="section-sub">브랜드 아이덴티티를 담은 5가지 색상</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            {[
-              { name: 'Deep Navy', hex: '#0F1B2D', bg: 'bg-navy-900' },
-              { name: 'Royal Blue', hex: '#1E3A8A', bg: 'bg-navy-700' },
-              { name: 'Sky Blue', hex: '#3B82F6', bg: 'bg-sky' },
-              { name: 'Emerald Teal', hex: '#0D9488', bg: 'bg-teal' },
-              { name: 'Gold Amber', hex: '#F59E0B', bg: 'bg-amber' },
-            ].map((c) => (
-              <div key={c.name} className="flex flex-col items-center gap-2">
-                <div className={`${c.bg} h-20 w-28 rounded-2xl shadow-lg`} />
-                <span className="text-sm font-semibold text-navy-900 dark:text-white">{c.name}</span>
-                <span className="text-xs text-gray-400 font-mono">{c.hex}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-24 bg-gradient-brand">
         <div className="container-wrap section-x text-center">
