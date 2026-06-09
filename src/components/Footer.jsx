@@ -114,6 +114,29 @@ export default function Footer() {
             <Link to="/terms" className="hover:text-gray-300 transition-colors">이용약관</Link>
           </div>
         </div>
+        {/* 사진 출처 */}
+        <div className="container-wrap section-x pb-3 text-right">
+          <span className="text-[10px] text-navy-700 select-none">
+            Photo by{' '}
+            <a
+              href="https://unsplash.com/@omilaev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-navy-500 transition-colors"
+            >
+              Igor Omilaev
+            </a>
+            {' '}on{' '}
+            <a
+              href="https://unsplash.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-navy-500 transition-colors"
+            >
+              Unsplash
+            </a>
+          </span>
+        </div>
       </div>
     </footer>
   )

@@ -40,6 +40,15 @@ export default function Home() {
 
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-gradient-hero">
+        {/* 배경 사진 — 연하게 */}
+        <img
+          src="/igor-omilaev-eGGFZ5X2LnA-unsplash.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+          style={{ opacity: 0.13, mixBlendMode: 'luminosity' }}
+        />
+
         {/* 배경 장식 */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-sky/10 blur-3xl" />
