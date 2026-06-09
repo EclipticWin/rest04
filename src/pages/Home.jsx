@@ -43,22 +43,22 @@ export default function Home() {
 
             {/* 제목 */}
             <h1 className="hero-anim hero-d2 text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-              누구나 쉽게 배우는
+              AI 영상으로 배우는
               <br />
-              <span className="text-gradient">인공지능 교육</span>
+              <span className="text-gradient">인공지능 세계</span>
             </h1>
 
             {/* 설명 */}
             <p className="hero-anim hero-d3 text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl">
-              AI 기초부터 실무 활용까지, 체계적인 동영상 강의로
+              AI 기초부터 생성형 AI, 미래 사회까지 —
               <br className="hidden sm:block" />
-              AI 역량을 빠르게 키워보세요.
+              유튜브 AI 영상을 주제별로 모아 한곳에서 만나보세요.
             </p>
 
             {/* 버튼 */}
             <div className="hero-anim hero-d4 flex flex-wrap gap-4">
               <Link to="/videos/ai-basics" className="btn-primary text-base px-8 py-4">
-                강의 시작하기
+                영상 보러 가기
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
@@ -124,8 +124,8 @@ export default function Home() {
         <div className="container-wrap section-x">
           <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
             <div>
-              <h2 className="section-title">최신 강의</h2>
-              <p className="section-sub">가장 최근에 업로드된 강의입니다</p>
+              <h2 className="section-title">최신 AI 영상</h2>
+              <p className="section-sub">최근 추가된 AI 영상을 확인하세요</p>
             </div>
             <Link
               to="/videos/ai-basics"
@@ -152,8 +152,8 @@ export default function Home() {
       <section className="py-20 bg-gray-50 dark:bg-navy-900">
         <div className="container-wrap section-x">
           <Reveal className="text-center mb-12">
-            <h2 className="section-title">왜 AILearn인가요?</h2>
-            <p className="section-sub">차별화된 AI 교육 경험을 제공합니다</p>
+            <h2 className="section-title">AILearn을 이용하는 이유</h2>
+            <p className="section-sub">AI 영상을 더 쉽게, 더 빠르게 찾아보세요</p>
           </Reveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -174,11 +174,11 @@ export default function Home() {
       <section className="py-24 bg-gradient-brand">
         <Reveal direction="fade" className="container-wrap section-x text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-            지금 바로 AI 학습을 시작하세요
+            지금 바로 AI 영상을 시작하세요
           </h2>
           <p className="text-lg text-white/70 mb-10 max-w-xl mx-auto">
-            유튜브를 통해 무료로 제공되는 AI 강의로
-            빠르게 AI 역량을 키워보세요.
+            유튜브의 인기 AI 영상을 주제별로 정리했습니다.
+            별도 가입 없이 누구나 무료로 시청할 수 있습니다.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
