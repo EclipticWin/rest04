@@ -28,6 +28,7 @@ export const navMenu = [
     ],
   },
   { label: '커리큘럼', path: '/curriculum' },
+  { label: '게시판', path: '/board' },
   { label: '회사소개', path: '/about' },
   { label: '문의하기', path: '/contact' },
 ]

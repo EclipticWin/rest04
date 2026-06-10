@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>로그인 처리 중...</title>
+  <style>
+    body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f9fafb; color: #6b7280; }
+    p { font-size: 14px; }
+  </style>
+</head>
+<body>
+  <p>로그인 처리 중입니다...</p>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script>
+    const { createClient } = supabase
+    const client = createClient(
+      'https://lpdijndoqijhhkwicwoy.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwZGlqbmRvcWlqaGhrd2ljd295Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwNjYyOTksImV4cCI6MjA5NjY0MjI5OX0.qs_v8g-kUj5_2y_PBskXfFzov7YuMEa1U43-28P7vR0'
+    )
+    // supabase client auto-reads access_token from URL hash and persists session
+    client.auth.getSession().then(function () {
+      window.location.replace('/rest04/#/')
+    }).catch(function () {
+      window.location.replace('/rest04/#/')
+    })
+  </script>
+</body>
+</html>
