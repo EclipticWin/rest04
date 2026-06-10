@@ -28,7 +28,7 @@
 - Supabase `signInWithOAuth({ provider: 'kakao' })` 사용
 - HashRouter + GitHub Pages 환경에서 OAuth 리다이렉트 충돌을 해결하기 위해 `public/oauth-redirect.html` 도입
   - Supabase가 카카오 인증 후 이 페이지로 리다이렉트 → 세션을 localStorage에 저장 → `/#/`로 이동
-- 카카오 개발자 콘솔에서 Redirect URI 등록 필요: `https://lpdijndoqijhhkwicwoy.supabase.co/auth/v1/callback`
+- 카카오 개발자 콘솔 Redirect URI: `https://lpdijndoqijhhkwicwoy.supabase.co/auth/v1/callback`
 
 #### Auth 상태 관리
 - `src/context/AuthContext.jsx` — `user`, `profile`, `isAdmin`, 로그인/로그아웃 함수 전역 제공
@@ -78,14 +78,43 @@
 
 #### 주요 설계 결정
 - `ail_posts.author_id`가 `ail_profiles.id`를 직접 참조 → Supabase PostgREST 자동 조인 지원
-- `ail_increment_view_count()` 함수: SECURITY DEFINER로 RLS 우회 후 조회수 증가, anon/authenticated 롤에 EXECUTE 권한 부여
+- `ail_increment_view_count()` 함수: SECURITY DEFINER로 RLS 우회 후 조회수 증가
 - 댓글 수는 INSERT/DELETE 트리거로 `ail_posts.comment_count` 자동 집계
 - 회원가입 트리거: `auth.users` INSERT 시 `ail_profiles` 자동 생성 (닉네임은 메타데이터에서 추출)
 
-#### RLS 정책 요약
-- 게시글·댓글 읽기: 비로그인 포함 전체 허용
-- 게시글 쓰기: 로그인 필수, 공지 카테고리는 admin만
-- 수정: 본인만 / 삭제: 본인 또는 admin
+---
+
+## 트러블슈팅
+
+### 이메일 회원가입 실패 (email rate limit exceeded)
+
+**원인**: 동일 이메일로 여러 번 가입 시도 → Supabase 무료 플랜 이메일 발송 한도(시간당 3회) 초과  
+**해결**: Supabase → Authentication → Providers → Email → **Confirm email OFF**  
+**비고**: 개발/테스트 중에는 인증 메일 비활성화 권장. 운영 전 재활성화 필요.
+
+### 카카오 로그인 KOE205 (동의항목 미설정)
+
+**원인 1**: Supabase GoTrue가 카카오 OAuth 요청 시 `account_email` 스코프를 서버 측에서 기본으로 포함시킴. 클라이언트 코드에서 스코프를 제거해도 GoTrue가 다시 추가하는 구조.  
+**원인 2**: 카카오 개발자 콘솔 동의항목에서 `account_email`이 비활성 상태.  
+**해결**:
+- 카카오 개발자 콘솔 → **비즈 앱 개인 개발자 전환** (사업자 번호 불필요, 개인 개발자 가능)
+- `카카오계정(이메일)` → **선택 동의** 활성화
+- `프로필 사진` → **선택 동의** 활성화
+- Supabase → Authentication → Providers → Kakao → **Allow users without an email ON** (이메일 제공 거부 시에도 로그인 가능)
+
+### 카카오 로그인 KOE006 (Redirect URI 미등록)
+
+**원인**: 카카오 개발자 콘솔에서 Redirect URI를 **로그아웃** 섹션에만 등록하고 **로그인** 섹션에 미등록  
+**해결**: 카카오 로그인 → **Redirect URI** (로그인용 섹션) → `https://lpdijndoqijhhkwicwoy.supabase.co/auth/v1/callback` 등록
+
+### 관리자 계정 설정
+
+Supabase SQL Editor에서 직접 실행:
+```sql
+UPDATE public.ail_profiles
+SET role = 'admin'
+WHERE id = (SELECT id FROM auth.users WHERE email = 'your@email.com');
+```
 
 ---
 
@@ -116,10 +145,16 @@ src/data/site.js                   — navMenu에 게시판 항목 추가
 
 ---
 
-## 남은 설정 (수동)
+## Supabase 대시보드 설정 (수동 완료)
 
-1. Supabase SQL Editor에서 `supabase/schema.sql` 실행
-2. Supabase Auth → Providers → Kakao 활성화 (REST API 키 + Client Secret)
-3. 카카오 개발자 콘솔 → Redirect URI 등록
-4. Supabase Auth → URL Configuration → Redirect URLs 추가
-5. 관리자 계정: `schema.sql` 하단 주석 해제 후 이메일 변경 실행
+- [x] SQL Editor에서 `supabase/schema.sql` 실행
+- [x] Authentication → Providers → Kakao 활성화
+  - REST API Key 등록
+  - Client Secret 등록
+  - Allow users without an email → ON
+- [x] 카카오 개발자 콘솔 → 비즈 앱 개인 개발자 전환
+- [x] 카카오 동의항목: 닉네임(필수), 프로필 사진(선택), 이메일(선택) 설정
+- [x] 카카오 Redirect URI 등록 (로그인용 섹션)
+- [x] Supabase Redirect URLs 추가: `https://eclipticwin.github.io/rest04/oauth-redirect.html`
+- [x] Authentication → Email → Confirm email OFF (개발 중)
+- [x] 관리자 계정 SQL 실행
