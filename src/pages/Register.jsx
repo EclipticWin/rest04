@@ -40,7 +40,7 @@ export default function Register() {
       if (err.message.includes('already registered') || err.message.includes('already been registered')) {
         setError('이미 사용 중인 이메일입니다.')
       } else {
-        setError('회원가입에 실패했습니다. 다시 시도해주세요.')
+        setError(`회원가입 실패: ${err.message}`)
       }
     } finally {
       setLoading(false)
