@@ -145,6 +145,17 @@ src/data/site.js                   — navMenu에 게시판 항목 추가
 
 ---
 
+## 최종 동작 확인
+
+- [x] 이메일 회원가입 / 로그인
+- [x] 카카오 로그인 (닉네임·프로필 사진 연동)
+- [x] 로그인 후 헤더 닉네임 표시
+- [x] 게시판 목록·상세·글쓰기·댓글
+- [x] 관리자 계정 공지사항 작성
+- [x] GitHub Pages 배포
+
+---
+
 ## Supabase 대시보드 설정 (수동 완료)
 
 - [x] SQL Editor에서 `supabase/schema.sql` 실행
