@@ -56,7 +56,7 @@ export function AuthProvider({ children }) {
       provider: 'kakao',
       options: {
         redirectTo: `${window.location.origin}/rest04/oauth-redirect.html`,
-        scopes: 'account_email profile_nickname',
+        scopes: 'profile_nickname profile_image',
       },
     })
     if (error) throw error
